@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type GridSpace = number | null
+type GridSpace = string
+
+export type GameState = GridSpace[][]
 
 const initialState: GridSpace[][] = [
-	[null, null, null, null, null, null, null],
-	[null, null, null, null, null, null, null],
-	[null, null, null, null, null, null, null],
-	[null, null, null, null, null, null, null],
-	[null, null, null, null, null, null, null],
-	[null, null, null, null, null, null, null],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
+	["", "", "", "", "", "", ""],
 ]
 
 export const gameSlice = createSlice({
