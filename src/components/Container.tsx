@@ -18,7 +18,7 @@ export const Container: React.FC<ContainerProps> = ({
         "border-4",
         "border-black",
         "rounded-2xl",
-        "w-[45vw]",
+        "w-[37vw]",
         "text-black",
         "shadow-lg",
         "shadow-black",

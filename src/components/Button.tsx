@@ -1,43 +1,35 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
 
 type ButtonProps = {
-  link: string;
   text: string;
-  textColor?: string;
-  icon?: ReactElement;
-  color: string;
+  handleClick: () => void;
 };
 
 export const Button: React.FC<ButtonProps> = ({
-  link,
   text,
-  textColor,
-  icon,
-  color,
+  handleClick,
 }: ButtonProps) => {
   return (
-    <Link
-      to={link}
-      className={classNames(
-        "flex",
-        "flex-row",
-        "items-center",
-        "border-4",
-        "border-black",
-        color,
-        "justify-between",
-        "rounded-2xl",
-        "px-6",
-        "py-3",
-        "mx-8",
-        "shadow-lg",
-        "shadow-black",
-      )}
-    >
-      <h1 className={classNames(textColor)}>{text.toUpperCase()}</h1>
-      <div>{icon}</div>
-    </Link>
+    <div className={classNames("mx-8")}>
+      <button
+        onClick={handleClick}
+        className={classNames(
+          "flex",
+          "border-4",
+          "border-black",
+          "rounded-2xl",
+          "px-6",
+          "py-3",
+          "shadow-lg",
+          "shadow-black",
+          "w-full",
+          "justify-center",
+          "bg-white",
+        )}
+      >
+        <h1>{text.toUpperCase()}</h1>
+      </button>
+    </div>
   );
 };
