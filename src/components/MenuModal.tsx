@@ -2,19 +2,20 @@ import React from "react";
 import classNames from "classnames";
 import { Modal } from "@mui/material";
 import { Container } from "./Container";
-import { GameLink } from "./GameLink";
 import { Button } from "./Button";
 
 type MenuModalProps = {
   open: boolean;
   onClose: () => void;
   onReset: () => void;
+  onQuit: () => void;
 };
 
 export const MenuModal: React.FC<MenuModalProps> = ({
   open,
   onClose,
   onReset,
+  onQuit,
 }: MenuModalProps) => {
   return (
     <Modal
@@ -54,13 +55,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
             </h1>
             <Button text="continue" handleClick={onClose} />
             <Button text="restart" handleClick={onReset} />
-            <GameLink
-              centerText
-              link="/"
-              text="quit game"
-              color="bg-red"
-              textColor="text-white"
-            />
+            <Button text="quit game" handleClick={onQuit} />
           </div>
         </Container>
       </div>

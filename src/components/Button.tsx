@@ -25,7 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
           "shadow-black",
           "w-full",
           "justify-center",
-          "bg-white",
+          text === "quit game" ? "bg-red text-white" : "bg-white",
         )}
       >
         <h1>{text.toUpperCase()}</h1>

@@ -7,12 +7,14 @@ import { Player } from "../components/Player";
 import { GameNavigation } from "../components/GameNavigation";
 import { MenuModal } from "../components/MenuModal";
 import { PlayerState, resetTurn, turnChange } from "../redux/playerSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Game: React.FC = () => {
   const boardData = useSelector((state: BoardState) => state.board);
   const playerData = useSelector((state: PlayerState) => state.player);
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleModal = () => {
     setOpen(!open);
@@ -21,7 +23,13 @@ export const Game: React.FC = () => {
   const handleRestart = () => {
     dispatch(clearBoard());
     dispatch(resetTurn());
-    setOpen(!open);
+    open === true && setOpen(!open);
+  };
+
+  const handleQuit = () => {
+    dispatch(clearBoard());
+    dispatch(resetTurn());
+    navigate("/");
   };
 
   const handlePiecePlacement = (index: number, subIndex: number) => {
@@ -45,9 +53,14 @@ export const Game: React.FC = () => {
         )}
       >
         <GameNavigation onClick={handleModal} text="Menu" />
-        <MenuModal open={open} onClose={handleModal} onReset={handleRestart} />
+        <MenuModal
+          open={open}
+          onQuit={handleQuit}
+          onClose={handleModal}
+          onReset={handleRestart}
+        />
         <Logo />
-        <GameNavigation text="Restart" onClick={handleRestart} />
+        <GameNavigation onClick={handleRestart} text="Restart" />
       </div>
       <section
         className={classNames("flex-row", "flex", "items-center", "space-x-12")}
