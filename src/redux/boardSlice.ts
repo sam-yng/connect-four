@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface BoardState { board: BoardSpace[][] }
-export type BoardSpace = string
+export type BoardSpace = string | number
 
 const initialState: BoardSpace[][] = [
 		["", "", "", "", "", "", ""],
@@ -19,9 +19,14 @@ export const boardSlice = createSlice({
 		placePiece: (state, action) => {
 			const baordCopy: BoardSpace[][] = [...state]
 			baordCopy[action.payload.index][action.payload.subIndex] = action.payload.player
+		},
+		clearBoard: (state) => {
+			const newBoard = initialState
+			state = newBoard
+			return state
 		}
 	}
 })
 
-export const { placePiece } = boardSlice.actions
+export const { placePiece, clearBoard } = boardSlice.actions
 export default boardSlice.reducer

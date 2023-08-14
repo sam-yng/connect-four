@@ -8,11 +8,13 @@ import { Button } from "./Button";
 type MenuModalProps = {
   open: boolean;
   onClose: () => void;
+  onReset: () => void;
 };
 
 export const MenuModal: React.FC<MenuModalProps> = ({
   open,
   onClose,
+  onReset,
 }: MenuModalProps) => {
   return (
     <Modal
@@ -51,7 +53,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
               PAUSE
             </h1>
             <Button text="continue" handleClick={onClose} />
-            <Button text="restart" handleClick={onClose} />
+            <Button text="restart" handleClick={onReset} />
             <GameLink
               centerText
               link="/"
