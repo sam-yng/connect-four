@@ -9,11 +9,12 @@ const playerSlice = createSlice({
 	name: "player",
 	initialState,
 	reducers: {
-		testAction2: (state, action) => {
-			console.log(action)
+		turnChange: (state, action) => {
+			state = action.payload.player
+			return state
 		}
 	}
 })
 
-export const { testAction2 } = playerSlice.actions
+export const { turnChange } = playerSlice.actions
 export default playerSlice.reducer

@@ -16,11 +16,12 @@ export const boardSlice = createSlice({
 	name: "board",
 	initialState,
 	reducers: {
-		testAction: (state, action) => {
-			console.log(action)
+		placePiece: (state, action) => {
+			const baordCopy: BoardSpace[][] = [...state]
+			baordCopy[action.payload.index][action.payload.subIndex] = action.payload.player
 		}
 	}
 })
 
-export const { testAction } = boardSlice.actions
+export const { placePiece } = boardSlice.actions
 export default boardSlice.reducer
