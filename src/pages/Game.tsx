@@ -1,20 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { BoardState, placePiece, clearBoard } from "../redux/boardSlice";
 import { Logo } from "../components/Svg";
-import { Player } from "../components/Player";
+import { PlayerAvatar } from "../components/Player";
 import { GameNavigation } from "../components/GameNavigation";
 import { MenuModal } from "../components/MenuModal";
-import { PlayerState, resetTurn, turnChange } from "../redux/playerSlice";
+import {
+  PlayerState,
+  resetTurn,
+  turnChange,
+  Player,
+} from "../redux/playerSlice";
 import { useNavigate } from "react-router-dom";
 
 export const Game: React.FC = () => {
   const boardData = useSelector((state: BoardState) => state.board);
   const playerData = useSelector((state: PlayerState) => state.player);
   const [open, setOpen] = useState<boolean>(false);
+  const [winner, setWinner] = useState<Player | null>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    checkWinCondition();
+  }, [boardData]);
 
   const handleModal = () => {
     setOpen(!open);
@@ -33,9 +43,8 @@ export const Game: React.FC = () => {
   };
 
   const handleWin = () => {
-    alert(`Player ${playerData} wins`);
-    dispatch(clearBoard());
-    dispatch(resetTurn());
+    console.log(`Player ${playerData} wins`);
+    setWinner(playerData);
   };
 
   const checkWinCondition = () => {
@@ -142,7 +151,7 @@ export const Game: React.FC = () => {
       <section
         className={classNames("flex-row", "flex", "items-center", "space-x-12")}
       >
-        <Player number="1" />
+        <PlayerAvatar number="1" />
         <div className={classNames("flex", "flex-col")}>
           <div
             className={classNames(
@@ -197,31 +206,55 @@ export const Game: React.FC = () => {
             })}
           </div>
         </div>
-        <Player number="2" />
+        <PlayerAvatar number="2" />
       </section>
-      <div
-        className={classNames(
-          "flex",
-          "justify-center",
-          "border-black",
-          "border-2",
-          "w-48",
-          "mx-auto",
-          "drop-shadow-lg",
-          "mt-4",
-          "h-24",
-          "rounded-2xl",
-          "pt-8",
-          "font-bold",
-          playerData === "1" ? "bg-red text-white" : "bg-yellow text-black",
-        )}
-      >
-        {playerData === "1" ? (
-          <h1>PLAYER 1&apos;S TURN</h1>
-        ) : (
-          <h1>PLAYER 2&apos;S TURN</h1>
-        )}
-      </div>
+      {winner ? (
+        <div
+          className={classNames(
+            "flex",
+            "border-black",
+            "border-2",
+            "w-48",
+            "mx-auto",
+            "drop-shadow-lg",
+            "mt-4",
+            "h-24",
+            "rounded-2xl",
+            "font-bold",
+            "bg-white",
+            "flex-col",
+            "text-center",
+            "pt-2",
+          )}
+        >
+          <h1>PLAYER {playerData}</h1>
+          <h1 className={classNames("text-3xl")}>WINS</h1>
+        </div>
+      ) : (
+        <div
+          className={classNames(
+            "flex",
+            "justify-center",
+            "border-black",
+            "border-2",
+            "w-48",
+            "mx-auto",
+            "drop-shadow-lg",
+            "mt-4",
+            "h-24",
+            "rounded-2xl",
+            "pt-8",
+            "font-bold",
+            playerData === "1" ? "bg-red text-white" : "bg-yellow text-black",
+          )}
+        >
+          {playerData === "1" ? (
+            <h1>PLAYER 1&apos;S TURN</h1>
+          ) : (
+            <h1>PLAYER 2&apos;S TURN</h1>
+          )}
+        </div>
+      )}
     </div>
   );
 };

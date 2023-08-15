@@ -7,7 +7,7 @@ type PlayerProps = {
   score?: number;
 };
 
-export const Player: React.FC<PlayerProps> = ({
+export const PlayerAvatar: React.FC<PlayerProps> = ({
   number,
   score = 0,
 }: PlayerProps) => {
