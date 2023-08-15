@@ -24,9 +24,10 @@ export const boardSlice = createSlice({
 			const newBoard = initialState
 			state = newBoard
 			return state
+		},
 		}
 	}
-})
+)
 
 export const { placePiece, clearBoard } = boardSlice.actions
 export default boardSlice.reducer

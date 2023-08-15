@@ -87,7 +87,6 @@ export const Game: React.FC = () => {
         }
       }
     }
-    console.log("checked");
     return null;
   };
 

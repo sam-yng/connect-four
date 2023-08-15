@@ -16,7 +16,7 @@ const playerSlice = createSlice({
 		resetTurn: (state) => {
 			state = "1"
 			return state
-		}
+		},
 	}
 })
 
