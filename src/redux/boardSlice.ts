@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface BoardState { board: BoardSpace[][] }
-export type BoardSpace = string | number
+export type BoardSpace = "" | "1" | "2"
 
 const initialState: BoardSpace[][] = [
 		["", "", "", "", "", "", ""],

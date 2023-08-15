@@ -32,7 +32,85 @@ export const Game: React.FC = () => {
     navigate("/");
   };
 
-  const handlePiecePlacement = (index: number, subIndex: number) => {
+  const handleWin = () => {
+    alert(`Player ${playerData} wins`);
+    dispatch(clearBoard());
+    dispatch(resetTurn());
+  };
+
+  const checkWinCondition = () => {
+    for (let i = 0; i < 3; i++) {
+      for (let k = 0; k < 7; k++) {
+        if (
+          boardData[i][k] === playerData &&
+          boardData[i + 1][k] === playerData &&
+          boardData[i + 2][k] === playerData &&
+          boardData[i + 3][k] === playerData
+        ) {
+          handleWin();
+        }
+      }
+    }
+    for (let i = 0; i < 6; i++) {
+      for (let k = 0; k < 4; k++) {
+        if (
+          boardData[i][k] === playerData &&
+          boardData[i][k + 1] === playerData &&
+          boardData[i][k + 2] === playerData &&
+          boardData[i][k + 3] === playerData
+        ) {
+          handleWin();
+        }
+      }
+    }
+    for (let i = 0; i < 3; i++) {
+      for (let k = 0; k < 4; k++) {
+        if (
+          boardData[i][k] === playerData &&
+          boardData[i + 1][k + 1] === playerData &&
+          boardData[i + 2][k + 2] === playerData &&
+          boardData[i + 3][k + 3] === playerData
+        ) {
+          handleWin();
+        }
+      }
+    }
+    for (let i = 3; i < 6; i++) {
+      for (let k = 0; k < 4; k++) {
+        if (
+          boardData[i][k] === playerData &&
+          boardData[i - 1][k + 1] === playerData &&
+          boardData[i - 2][k + 2] === playerData &&
+          boardData[i - 3][k + 3] === playerData
+        ) {
+          handleWin();
+        }
+      }
+    }
+    console.log("checked");
+    return null;
+  };
+
+  const handlePiecePlacement = (subIndex: number) => {
+    let index = 5;
+    boardData[5][subIndex].length === 0
+      ? (index = 5)
+      : boardData[5][subIndex].length !== 0 &&
+        boardData[4][subIndex].length === 0
+      ? (index = 4)
+      : boardData[4][subIndex].length !== 0 &&
+        boardData[3][subIndex].length === 0
+      ? (index = 3)
+      : boardData[3][subIndex].length !== 0 &&
+        boardData[2][subIndex].length === 0
+      ? (index = 2)
+      : boardData[2][subIndex].length !== 0 &&
+        boardData[1][subIndex].length === 0
+      ? (index = 1)
+      : boardData[1][subIndex].length !== 0 &&
+        boardData[0][subIndex].length === 0
+      ? (index = 0)
+      : null;
     dispatch(
       placePiece({ index: index, subIndex: subIndex, player: playerData }),
     );
@@ -92,7 +170,6 @@ export const Game: React.FC = () => {
                   {items?.map((subItems, subIndex) => {
                     return (
                       <div
-                        id="circle"
                         className={classNames(
                           "border",
                           "border-3",
@@ -110,11 +187,7 @@ export const Game: React.FC = () => {
                             : "bg-yellow text-yellow text-[0.5px]",
                         )}
                         key={subIndex}
-                        onClick={() =>
-                          boardData[index][subIndex] === ""
-                            ? handlePiecePlacement(index, subIndex)
-                            : null
-                        }
+                        onClick={() => handlePiecePlacement(subIndex)}
                       >
                         {subItems}
                       </div>
