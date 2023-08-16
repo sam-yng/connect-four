@@ -24,13 +24,14 @@ export const Game: React.FC = () => {
 
   useEffect(() => {
     checkWinCondition();
-  }, [boardData]);
+  }, [dispatch, boardData]);
 
   const handleModal = () => {
     setOpen(!open);
   };
 
   const handleRestart = () => {
+    setWinner(null);
     dispatch(clearBoard());
     dispatch(resetTurn());
     open === true && setOpen(!open);
@@ -176,8 +177,16 @@ export const Game: React.FC = () => {
                   key={index}
                 >
                   {items?.map((subItems, subIndex) => {
+                    const pieceColour =
+                      boardData[index][subIndex] === ""
+                        ? "bg-purple"
+                        : boardData[index][subIndex] === "1"
+                        ? "bg-red text-red text-[0.5px]"
+                        : "bg-yellow text-yellow text-[0.5px]";
+
                     return (
                       <div
+                        key={subIndex}
                         className={classNames(
                           "border",
                           "border-3",
@@ -188,13 +197,8 @@ export const Game: React.FC = () => {
                           "m-2",
                           "border-4",
                           "border-black",
-                          boardData[index][subIndex] === ""
-                            ? "bg-purple"
-                            : boardData[index][subIndex] === "1"
-                            ? "bg-red text-red text-[0.5px]"
-                            : "bg-yellow text-yellow text-[0.5px]",
+                          pieceColour,
                         )}
-                        key={subIndex}
                         onClick={() => handlePiecePlacement(subIndex)}
                       >
                         {subItems}
